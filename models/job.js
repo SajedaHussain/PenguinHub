@@ -15,11 +15,11 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-   RequiredNumber:{
-    type: Number,
-    min:0,
-    required: true,
-   },
+//    RequiredNumber:{
+//     type: Number,
+//     min:0,
+//     required: true,
+//    },
 //   requirements: {
 //      type: String,
 //     required: true,

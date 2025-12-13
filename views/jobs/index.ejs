@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Jobs</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Here's all Jobs available</h1>
+    <a href="/jobs/new">Add Job</a>
+    <ul>
+        <% jobs.forEach((job)=> { %>
+            <li>
+                <a href="/jobs/<%= job._id %>">A job of <%= job.title %> owned by <%= job.owner.username %>.</a>
+            </li>
+            <% }) %>
+    </ul>
+</body>
+
+</html>
