@@ -1,70 +1,61 @@
-// imports
-const express = require("express") //importing express package
-const app = express() // creates a express application
-require("dotenv").config() // allows us to use the .env variables
-const mongoose = require("mongoose") // importing mongoose
-const morgan = require("morgan")
-const methodOverride = require("method-override")
+require('dotenv').config();
+require('./config/database.js');
 
+const express = require('express');
+const path = require('path');
 
-
-
-
+const app = express();
+// Sessions
+const session = require('express-session');
+const { MongoStore } = require('connect-mongo');
 
 // Middleware
-app.use(express.static('public')); //all static files are in the public folder
-app.use(express.urlencoded({ extended: false })); // this will allow us to see the data being sent in the POST or PUT
-app.use(methodOverride("_method")); // Changes the method based on the ?_method
-app.use(morgan("dev")) // logs the requests as they are sent to our sever in the terminal
+const methodOverride = require('method-override');
+const morgan = require('morgan');
+const passUserToView = require('./middleware/passUserToView.js');
+const isSignedIn = require('./middleware/isSignedIn.js');
 
+// Controllers
+const authCtrl = require('./controllers/auth');
+const jobCtrl =require('./controllers/jobs.js')
 
+// Set the port from environment variable or default to 3000
+const port = process.env.PORT ? process.env.PORT : '3000';
 
+app.use(express.static(path.join(__dirname, 'public')));
+// Middleware to parse URL-encoded data from forms
+app.use(express.urlencoded({ extended: false }));
+// Middleware for using HTTP verbs such as PUT or DELETE
+app.use(methodOverride('_method'));
+// Morgan for logging HTTP requests
+app.use(morgan('dev'));
+// Session
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
+  })
+);
 
-async function conntectToDB(){ //connection to the database
-    try{
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log("Connected to Database")
-    }
-    catch(error){
-        console.log("Error Occured",error)
-    }
-}
+// Locals
+app.use(passUserToView);
 
+// ---------- PUBLIC ROUTES ----------
 
+app.get('/', async (req, res) => {
+  res.render('index.ejs');
+});
 
+app.use('/auth', authCtrl);
+app.use('/job',jobCtrl)
 
-conntectToDB() // connect to database
+// ---------- PROTECTED ROUTES ----------
+app.use(isSignedIn);
 
-
-
-
-
-
-
-
-// Routes go here
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(3000,()=>{
-    console.log('App is running on port 3000')
-}) // app will be waiting for requests on port 3000
-
-
-
-
+app.listen(port, () => {
+  console.log(`The express app is ready on port ${port}!`);
+});
