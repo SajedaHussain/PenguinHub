@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= job.owner.username %>'s Jobs</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+        <h1>Job Title: <%= job.title %></h1>
+        <p>Job Descreption: <%= job.descraption %></p>
+        <% if (job.owner._id.equals(user._id)) { %>
+            <h2>You own this Job!</h2>
+            <form action="/jobs/<%= job._id %>/edit" method="get">
+                <button type="submit">Edit this Job</button>
+            </form>
+            <form action="/jobs/<%= job._id %>?_method=DELETE" method="post">
+                <button type="submit">Delete this Job</button>
+            </form>
+        <% } else { %>
+            <p>You don't own this, <%= job.owner.username %> does!</p>
+        <% } %>
+
+        <h2>Favorites</h2>
+        <p>Favorited by <%= job.favoritedByUsers.length %> people.</p>
+        
+        <% if (userHasFavorited) { %>
+            <p>You have been nominated for the Job!</p>
+            <form action="/jobs/<%= job._id %>/favorited-by/<%= user._id %>?_method=DELETE" method="POST">
+                <button type="submit">Unfavorite it</button>
+            </form>
+            
+        <% } else { %>
+            <p>You haven't favorited this listing.</p>
+            <form action="/jobs/<%= job._id %>/favorited-by/<%= user._id %>" method="POST">
+                <button type="submit">Favorite it!</button>
+            </form>
+        <% } %>
+    
+        
+</body>
+
+</html>

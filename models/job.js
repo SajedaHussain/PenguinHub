@@ -15,6 +15,14 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+      favoritedByUsers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }]
+},
+{
+    timestamps: true
+});
 //    RequiredNumber:{
 //     type: Number,
 //     min:0,
@@ -24,7 +32,7 @@ const jobSchema = new mongoose.Schema({
 //      type: String,
 //     required: true,
 //   },
-});
+
 
 // model creation =================================================================================
 
