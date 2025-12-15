@@ -1,27 +1,38 @@
-<h1>Create Profile</h1>
-<%- include('../partials/_navbar.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Profile</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  
+  <div class="profile-container">
+    <form action="/profiles" method="POST">
+      <label>Name</label>
+      <input type="text" name="name" required />
 
-<form action="/profiles" method="POST">
-  <label>Name</label>
-  <input type="text" name="name" required />
+      <label>Age</label>
+      <input type="number" name="age" />
 
-  <label>Age</label>
-  <input type="number" name="age" />
+      <label>Height (cm)</label>
+      <input type="number" name="height" />
 
-  <label>Height (cm)</label>
-  <input type="number" name="height" />
+      <label>Weight (kg)</label>
+      <input type="number" name="weight" />
 
-  <label>Weight (kg)</label>
-  <input type="number" name="weight" />
+      <label>Current Job</label>
+      <select name="currentJob">
+        <option value="job seeker">Job Seeker</option>
+        <option value="employed">Employed</option>
+      </select>
 
-  <label>Current Job</label>
-  <select name="currentJob">
-    <option value="job seeker">Job Seeker</option>
-    <option value="employed">Employed</option>
-  </select>
+      <label>Image URL</label>
+      <input type="text" name="image" placeholder="https://example.com/penguin.jpg" />
 
-  <label>Image URL</label>
-  <input type="text" name="image" />
-
-  <button>Create Profile</button>
-</form>
+      <button>Create Profile</button>
+    </form>
+  </div>
+</body>
+</html>
