@@ -1,10 +1,20 @@
 <nav>
-    <% if (user) { %>
-        <a href="/">Home</a>
-        <a href="/jobs">View all Jobs</a>
-        <a href="/auth/sign-out">Sign Out</a>
+  <% if (user) { %>
+    <a href="/">Home</a>
+    <a href="/jobs">Jobs</a>
+
+    <% if (profile) { %>
+      <a href="/profiles/<%= profile._id %>">🐧 My Profile</a>
     <% } else { %>
-        <a href="/auth/sign-up">Sign Up</a>
-        <a href="/auth/sign-in">Sign In</a>
-        <% } %>
+      <a href="/profiles/new">Create Profile</a>
+    <% } %>
+
+    <a href="/auth/sign-out">Sign Out</a>
+
+  <% } else { %>
+
+    <a href="/auth/sign-up">Sign Up</a>
+    <a href="/auth/sign-in">Sign In</a>
+
+  <% } %>
 </nav>

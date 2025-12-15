@@ -18,71 +18,83 @@
 </head>
 
 <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= job.title %></title>
+</head>
 
-    <h1>Job Title: <%= job.title %></h1>
-    <p>Job Description: <%= job.description %></p>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
 
-    <% if (job.owner._id.equals(user._id)) { %>
-        <form action="/jobs/<%= job._id %>/edit" method="GET">
-            <button type="submit">Edit Job</button>
-        </form>
-        <form action="/jobs/<%= job._id %>?_method=DELETE" method="POST">
-            <button>Delete Job</button>
-        </form>
+  <h1>Job Title: <%= job.title %></h1>
+  <p>Job Description: <%= job.description %></p>
+
+  <% if (job.owner._id.equals(user._id)) { %>
+    <form action="/jobs/<%= job._id %>/edit" method="GET">
+      <button>Edit Job</button>
+    </form>
+
+    <form action="/jobs/<%= job._id %>?_method=DELETE" method="POST">
+      <button>Delete Job</button>
+    </form>
+  <% } %>
+
+  <!-- APPLY -->
+  <% if (!job.owner._id.equals(user._id)) { %>
+    <% const applied = job.candidates.some(c => c.user._id.equals(user._id)) %>
+
+    <% if (applied) { %>
+      <p>You have already applied for this job</p>
+    <% } else { %>
+      <form action="/jobs/<%= job._id %>/apply" method="POST">
+        <button>Apply for this Job</button>
+      </form>
     <% } %>
+  <% } %>
 
-    <!-- For non-owner users -->
-    <% if (!job.owner._id.equals(user._id)) { %>
-        <% const applied = job.candidates.some(c => c.user._id.equals(user._id)) %>
-        <% if (applied) { %>
-            <p>You have already applied for this job</p>
-        <% } else { %>
-            <form action="/jobs/<%= job._id %>/apply" method="POST">
-                <button>Apply for this Job</button>
-            </form>
-        <% } %>
+  <!-- Applicant status -->
+  <% job.candidates.forEach(c => { %>
+    <% if (c.user._id.equals(user._id)) { %>
+      <p>
+        Application Status:
+        <% if (!c.status || c.status === 'pending') { %> ⏳ Pending <% } %>
+        <% if (c.status === 'selected') { %> ✅ Selected <% } %>
+        <% if (c.status === 'rejected') { %> ❌ Rejected <% } %>
+      </p>
     <% } %>
+  <% }) %>
 
-    <!-- Display current user's application status -->
+  <!-- OWNER VIEW -->
+  <% if (job.owner._id.equals(user._id)) { %>
+    <h2>Candidates</h2>
+
     <% job.candidates.forEach(c => { %>
-        <% if (c.user._id.equals(user._id)) { %>
-            <p>
-                Application Status:
-                <% if (!c.status || c.status === 'pending') { %> 
-                    <span class="status pending">⏳ Pending</span> 
-                <% } %>
-                <% if (c.status === 'selected') { %> 
-                    <span class="status selected">✅ Selected</span> 
-                <% } %>
-                <% if (c.status === 'rejected') { %> 
-                    <span class="status rejected">❌ Rejected</span> 
-                <% } %>
-            </p>
-        <% } %>
-    <% }) %>
+      <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+        🐧
+        <a href="/profiles/user/<%= c.user._id %>">
+          <%= c.user.username %>
+        </a>
 
-    <!-- Owner view of candidates -->
-    <% if (job.owner._id.equals(user._id)) { %>
-        <h2>Candidates</h2>
-        <% job.candidates.forEach(c => { %>
-            <div class="candidate">
-                🐧 <%= c.user.username %> —
-                <strong class="status 
-                    <%= !c.status || c.status === 'pending' ? 'pending' : '' %>
-                    <%= c.status === 'selected' ? 'selected' : '' %>
-                    <%= c.status === 'rejected' ? 'rejected' : '' %>">
-                    <%= !c.status ? 'Pending' : c.status.charAt(0).toUpperCase() + c.status.slice(1) %>
-                </strong>
-                <form action="/jobs/<%= job._id %>/select/<%= c.user._id %>?_method=PUT" method="POST" style="display:inline;">
-                    <button>Select</button>
-                </form>
-                <form action="/jobs/<%= job._id %>/reject/<%= c.user._id %>?_method=PUT" method="POST" style="display:inline;">
-                    <button>Reject</button>
-                </form>
-            </div>
-        <% }) %>
-    <% } %>
+        -
+        <strong>
+          <%= !c.status ? 'Pending' : c.status %>
+        </strong>
+
+        <form action="/jobs/<%= job._id %>/select/<%= c.user._id %>?_method=PUT" method="POST" style="display:inline;">
+          <button>Select</button>
+        </form>
+
+        <form action="/jobs/<%= job._id %>/reject/<%= c.user._id %>?_method=PUT" method="POST" style="display:inline;">
+          <button>Reject</button>
+        </form>
+      </div>
+    <% }) %>
+  <% } %>
+
+
 
 </body>
 </html>

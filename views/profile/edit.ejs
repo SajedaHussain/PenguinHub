@@ -1,0 +1,31 @@
+<h1>Edit Profile</h1>
+
+<form action="/profiles/<%= profile._id %>?_method=PUT" method="POST">
+
+  <label>Name</label>
+  <input type="text" name="name" value="<%= profile.name %>" required />
+
+  <label>Age</label>
+  <input type="number" name="age" value="<%= profile.age %>" />
+
+  <label>Height (cm)</label>
+  <input type="number" name="height" value="<%= profile.height %>" />
+
+  <label>Weight (kg)</label>
+  <input type="number" name="weight" value="<%= profile.weight %>" />
+
+  <label>Current Job</label>
+  <select name="currentJob">
+    <option value="job seeker" <%= profile.currentJob === 'job seeker' ? 'selected' : '' %>>
+      Job Seeker
+    </option>
+    <option value="employed" <%= profile.currentJob === 'employed' ? 'selected' : '' %>>
+      Employed
+    </option>
+  </select>
+
+  <label>Image URL</label>
+  <input type="text" name="image" value="<%= profile.image %>" />
+
+  <button>Save Changes</button>
+</form>

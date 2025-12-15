@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Penguin Profile</title>
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+
+  <h1>🐧 <%= profile.name %></h1>
+
+  <% if (profile.image) { %>
+    <img src="<%= profile.image %>" width="200" />
+  <% } %>
+
+  <p>Age: <%= profile.age %></p>
+  <p>Height: <%= profile.height %> cm</p>
+  <p>Weight: <%= profile.weight %> kg</p>
+
+  <p>Status:
+    <strong>
+      <%= profile.currentJob === 'job seeker' ? 'Job Seeker' : 'Employed' %>
+    </strong>
+  </p>
+
+  <% if (profile.owner.equals(user._id)) { %>
+    <a href="/profiles/<%= profile._id %>/edit">
+      <button>Edit Profile</button>
+    </a>
+  <% } %>
+
+</body>
+</html>

@@ -2,18 +2,38 @@ const express = require('express')
 const router = express.Router()
 const Profile = require('../models/profile')
 
-// SHOW profile
+// SHOW profile (by profile ID)
 router.get('/:id', async (req, res) => {
   try {
     const profile = await Profile.findById(req.params.id)
-    res.render('profiles/show.ejs', { profile })
+    res.render('profiles/show.ejs', {
+      profile,
+      user: req.session.user
+    })
   } catch (err) {
     console.log(err)
     res.redirect('/')
   }
 })
 
-// EDIT form
+// SHOW profile by USER ID (for job owner)
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ owner: req.params.userId })
+
+    if (!profile) return res.redirect('/')
+
+    res.render('profiles/show.ejs', {
+      profile,
+      user: req.session.user
+    })
+  } catch (err) {
+    console.log(err)
+    res.redirect('/')
+  }
+})
+
+// EDIT
 router.get('/:id/edit', async (req, res) => {
   try {
     const profile = await Profile.findById(req.params.id)
@@ -29,7 +49,7 @@ router.get('/:id/edit', async (req, res) => {
   }
 })
 
-// UPDATE profile
+// UPDATE
 router.put('/:id', async (req, res) => {
   try {
     const profile = await Profile.findById(req.params.id)

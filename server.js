@@ -1,38 +1,44 @@
-require('dotenv').config();
-require('./config/database.js');
+require('dotenv').config()
+require('./config/database.js')
 
-const express = require('express');
-const path = require('path');
+const express = require('express')
+const path = require('path')
 
-const app = express();
+const app = express()
+
 // Sessions
-const session = require('express-session');
-const { MongoStore } = require('connect-mongo');
+const session = require('express-session')
+const { MongoStore } = require('connect-mongo')
 
 // Middleware
-const methodOverride = require('method-override');
-const morgan = require('morgan');
-const passUserToView = require('./middleware/passUserToView.js');
-const isSignedIn = require('./middleware/isSignedIn.js');
+const methodOverride = require('method-override')
+const morgan = require('morgan')
+const isSignedIn = require('./middleware/isSignedIn.js')
+
+// Models
+const Profile = require('./models/profile')
 
 // Controllers
-const authCtrl = require('./controllers/auth');
-const jobCtrl =require('./controllers/jobs.js');
-const profileRoutes = require('./controllers/profiles')
+const authCtrl = require('./controllers/auth')
+const jobCtrl = require('./controllers/jobs.js')
+const profileCtrl = require('./controllers/profiles')
 
+// Port
+const port = process.env.PORT || 3000
 
+// Static files
+app.use(express.static(path.join(__dirname, 'public')))
 
-// Set the port from environment variable or default to 3000
-const port = process.env.PORT ? process.env.PORT : '3000';
+// Body parser
+app.use(express.urlencoded({ extended: false }))
 
-app.use(express.static(path.join(__dirname, 'public')));
-// Middleware to parse URL-encoded data from forms
-app.use(express.urlencoded({ extended: false }));
-// Middleware for using HTTP verbs such as PUT or DELETE
-app.use(methodOverride('_method'));
-// Morgan for logging HTTP requests
-app.use(morgan('dev'));
-// Session
+// Method override
+app.use(methodOverride('_method'))
+
+// Logger
+app.use(morgan('dev'))
+
+// Session config
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -42,10 +48,20 @@ app.use(
       mongoUrl: process.env.MONGODB_URI,
     }),
   })
-);
+)
 
-// Locals
-app.use(passUserToView);
+// ✅ GLOBAL LOCALS (User + Profile for Navbar)
+app.use(async (req, res, next) => {
+  if (req.session.user) {
+    const profile = await Profile.findOne({ owner: req.session.user._id })
+    res.locals.user = req.session.user
+    res.locals.profile = profile
+  } else {
+    res.locals.user = null
+    res.locals.profile = null
+  }
+  next()
+})
 
 // Public routes
 app.get('/', (req, res) => {
@@ -54,12 +70,11 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authCtrl)
 
-// Protected routes (require login)
+// Protected routes
 app.use(isSignedIn)
 app.use('/jobs', jobCtrl)
-app.use('/profiles', profileRoutes)
-
+app.use('/profiles', profileCtrl)
 
 app.listen(port, () => {
-  console.log(`The express app is ready on port ${port}!`);
-});
+  console.log(`The express app is ready on port ${port}!`)
+})
