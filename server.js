@@ -17,7 +17,10 @@ const isSignedIn = require('./middleware/isSignedIn.js');
 
 // Controllers
 const authCtrl = require('./controllers/auth');
-const jobCtrl =require('./controllers/jobs.js')
+const jobCtrl =require('./controllers/jobs.js');
+const profileRoutes = require('./controllers/profiles')
+
+
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -54,6 +57,7 @@ app.use('/auth', authCtrl)
 // Protected routes (require login)
 app.use(isSignedIn)
 app.use('/jobs', jobCtrl)
+app.use('/profiles', profileRoutes)
 
 
 app.listen(port, () => {
