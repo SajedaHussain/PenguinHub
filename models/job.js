@@ -7,22 +7,33 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  descraption: {
+  description: {
     type: String,
     required: true,
   },
-   owner: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-      favoritedByUsers:[{
+  candidates: [
+    {
+      user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }]
+        ref: 'User',
+        required: true
+      },
+      status: {
+        type: String,
+        enum: ['pending', 'selected', 'rejected'],
+        default: 'pending'
+      }
+    }
+  ]
+
 },
-{
+  {
     timestamps: true
-});
+  });
 //    RequiredNumber:{
 //     type: Number,
 //     min:0,

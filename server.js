@@ -44,17 +44,17 @@ app.use(
 // Locals
 app.use(passUserToView);
 
-// ---------- PUBLIC ROUTES ----------
+// Public routes
+app.get('/', (req, res) => {
+  res.render('index.ejs')
+})
 
-app.get('/', async (req, res) => {
-  res.render('index.ejs');
-});
+app.use('/auth', authCtrl)
 
-app.use('/auth', authCtrl);
-app.use('/job',jobCtrl)
+// Protected routes (require login)
+app.use(isSignedIn)
+app.use('/jobs', jobCtrl)
 
-// ---------- PROTECTED ROUTES ----------
-app.use(isSignedIn);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
