@@ -8,8 +8,13 @@ const Job = require('../models/job')
 
 router.get('/', async (req, res) => {
     try {
-        const populatedJobs = await Job.find().populate('owner')
-        res.render('jobs/index.ejs', { jobs: populatedJobs })
+    const search = req.query.search
+    let query = {}
+    if (search) {
+      query.title = { $regex: search, $options: 'i' }
+    }
+        const populatedJobs = await Job.find(query).populate('owner')
+        res.render('jobs/index.ejs', { jobs: populatedJobs , search })
     }
     catch (err) {
         console.error('Ran into an error: ' + err)

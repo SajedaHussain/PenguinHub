@@ -178,23 +178,6 @@ form {
   animation: fadeUp 0.6s ease;
 }
 
-form::before {
-  content: '🐧';
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #1e90ff, #0077cc);
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
-}
-
 form label {
   display: block;
   margin-top: 18px;
@@ -1038,3 +1021,46 @@ footer a:hover {
   margin-top: 12px;
   color: #1e2a5a;
 }
+.job-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  padding: 20px 30px;
+  border-radius: 25px;
+}
+
+.job-search input {
+  width: 280px;
+  padding: 10px 14px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #000;
+}
+
+.job-search button {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  background: #243b6b;
+  color: white;
+  cursor: pointer;
+}
+
+.job-search button:hover {
+  background: rgba(27, 47, 87, 0.9);
+}
+
+
+
+
+
+
+
+
+

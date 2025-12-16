@@ -11,6 +11,16 @@
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <form class="job-search" action="/jobs" method="GET">
+  <input 
+    type="text" 
+    name="search"
+    placeholder="🔍 Search for a job..."
+    value="<%= search || '' %>"
+  />
+  <button type="submit">Search</button>
+</form>
+
     <h1>Here's all Jobs available</h1>
     <a href="/jobs/new" class="add-job-btn">Add Job</a>
     <ul>
