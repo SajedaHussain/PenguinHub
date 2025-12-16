@@ -23,11 +23,29 @@ router.post('/', async (req, res) => {
 router.get('/user/:userId', async (req, res) => {
   try {
     const profile = await Profile.findOne({ owner: req.params.userId })
-    if (!profile) return res.redirect('/')
+    if (!profile) {
+       return res.redirect('/jobs')
+    }
+
+    // صاحب البروفايل
+    const isProfileOwner = profile.owner.equals(req.session.user._id)
+
+    // هل المستخدم Owner لوظيفة هذا الشخص مقدم عليها؟
+    const Job = require('../models/job')
+    const isJobOwner = await Job.exists({
+      owner: req.session.user._id,
+      'candidates.user': profile.owner
+    })
+
+    if (!isProfileOwner && !isJobOwner) {
+      return res.redirect('/')
+    }
+
     res.render('profiles/show.ejs', {
       profile,
       user: req.session.user
     })
+
   } catch (err) {
     console.log(err)
     res.redirect('/')

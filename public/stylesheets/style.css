@@ -860,3 +860,141 @@ footer a:hover {
     font-size: 1.5rem;
   }
 }
+
+/* JOBS PAGE */
+.jobs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.job-box {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.job-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+.job-box h3 {
+  font-size: 22px;
+  color: #1f3c88;
+  margin-bottom: 10px;
+}
+
+.job-owner {
+  color: #6c757d;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.job-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #3f72af, #112d4e);
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.job-btn:hover {
+  background: linear-gradient(135deg, #112d4e, #3f72af);
+}
+
+.add-job-btn {
+  display: inline-block;
+  margin: 20px auto;
+  padding: 12px 28px;
+  background: #3f72af;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* AUTH (SIGN IN / SIGN UP) */
+.auth-container {
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 35px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.auth-container h1 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #1f3c88;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-container label {
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+}
+
+.auth-container input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.auth-container input:focus {
+  outline: none;
+  border-color: #1f3c88;
+  box-shadow: 0 0 0 2px rgba(31, 60, 136, 0.15);
+}
+
+.auth-container button {
+  margin-top: 15px;
+  padding: 14px;
+  background: linear-gradient(135deg, #1f3c88, #3a6df0);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(31, 60, 136, 0.35);
+}
+
+.auth-link {
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.auth-link a {
+  color: #1f3c88;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
