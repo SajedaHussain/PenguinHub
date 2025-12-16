@@ -27,10 +27,8 @@ router.get('/user/:userId', async (req, res) => {
        return res.redirect('/jobs')
     }
 
-    // صاحب البروفايل
     const isProfileOwner = profile.owner.equals(req.session.user._id)
 
-    // هل المستخدم Owner لوظيفة هذا الشخص مقدم عليها؟
     const Job = require('../models/job')
     const isJobOwner = await Job.exists({
       owner: req.session.user._id,
@@ -96,5 +94,20 @@ router.put('/:id', async (req, res) => {
     res.redirect('/')
   }
 })
+
+// SHOW ALL PENGUINS (PUBLIC)
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find({})
+    res.render('profiles/index.ejs', {
+      profiles,
+      user: req.session.user
+    })
+  } catch (err) {
+    console.log(err)
+    res.redirect('/')
+  }
+})
+
 
 module.exports = router

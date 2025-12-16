@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Penguins</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+  <%- include('../partials/_navbar.ejs') %>
+
+  <h1 class="page-title"> All Penguins</h1>
+
+  <div class="penguin-grid">
+    <% profiles.forEach(profile => { %>
+      <div class="penguin-card">
+        <img src="<%= profile.image %>" alt="penguin">
+        <h3><%= profile.name %></h3>
+      </div>
+    <% }) %>
+  </div>
+
+</body>
+</html>
