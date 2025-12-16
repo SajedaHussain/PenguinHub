@@ -1,4 +1,4 @@
-// models/listing.js
+// models
 
 const mongoose = require('mongoose');
 
@@ -6,6 +6,25 @@ const jobSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+  },
+    workLocation: {
+    type: String,
+    required: true
+  },
+  workType: {
+    type: String,
+    enum: ['shifts', 'full-time', 'part-time'],
+    required: true
+  },
+    employeesNeeded: {
+    type: Number,
+    required: true,
+    min: 1
+  },
+    maximumApplicants: {
+    type: Number,
+    required: true,
+    min: 1
   },
   description: {
     type: String,
@@ -28,21 +47,12 @@ const jobSchema = new mongoose.Schema({
         default: 'pending'
       }
     }
-  ]
+  ],
 
 },
   {
     timestamps: true
   });
-//    RequiredNumber:{
-//     type: Number,
-//     min:0,
-//     required: true,
-//    },
-//   requirements: {
-//      type: String,
-//     required: true,
-//   },
 
 
 // model creation =================================================================================

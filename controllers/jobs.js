@@ -65,31 +65,37 @@ router.post('/', async (req, res) => {
 })
 //appling for Job ===============================================================================================
 router.post('/:id/apply', async (req, res) => {
-    try {
-        const job = await Job.findById(req.params.id)
+  try {
+    const job = await Job.findById(req.params.id)
 
-        if (job.owner.equals(req.session.user._id)) {
-            return res.redirect(`/jobs/${job._id}`)
-        }
-
-        const alreadyApplied = job.candidates.some(c =>
-            c.user.equals(req.session.user._id)
-        )
-
-        if (!alreadyApplied) {
-            job.candidates.push({
-                user: req.session.user._id
-            })
-            await job.save()
-        }
-
-        res.redirect(`/jobs/${job._id}`)
-    } catch (err) {
-        console.error(err)
-        res.redirect('/jobs')
+    if (job.owner.equals(req.session.user._id)) {
+      return res.redirect(`/jobs/${job._id}`)
     }
-})
 
+    if (job.candidates.length >= job.maximumApplicants) {
+      return res.redirect(`/jobs/${job._id}`)
+    }
+
+    const alreadyApplied = job.candidates.some(c =>
+      c.user.equals(req.session.user._id)
+    )
+
+    if (alreadyApplied) {
+      return res.redirect(`/jobs/${job._id}`)
+    }
+
+    job.candidates.push({
+      user: req.session.user._id
+    })
+
+    await job.save()
+    res.redirect(`/jobs/${job._id}`)
+
+  } catch (err) {
+    console.error(err)
+    res.redirect('/jobs')
+  }
+})
 
 
 // DELETE ========================================================================================

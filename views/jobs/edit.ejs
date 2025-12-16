@@ -14,11 +14,35 @@
         <h1>Editing a Job</h1>
         <form action="/jobs/<%= job._id %>?_method=PUT" method="POST">
             <label for="title">Job Title:</label>
-        <input type="text" name="title" id="title" required value="<%= job.title %>"/><br><br>
+            <input type="text" name="title" id="title" required value="<%= job.title %>" />
 
-        <label for="description">Job Description:</label>
-        <input type="text" name="description" id="description" required value="<%= job.description %>"/><br><br>
-            
+            <label>Work Location</label>
+            <input type="text" name="workLocation" value="<%= job.workLocation %>" required />
+
+            <label>Work Type</label>
+            <select name="workType" required>
+                <option value="shifts" <%=job.workType==='shifts' ? 'selected' : '' %>>
+                    Shifts
+                </option>
+                <option value="full-time" <%=job.workType==='full-time' ? 'selected' : '' %>>
+                    Full Time
+                </option>
+                <option value="part-time" <%=job.workType==='part-time' ? 'selected' : '' %>>
+                    Part Time
+                </option>
+            </select>
+
+            <label>Penguins Needed </label>
+            <input type="number" name="employeesNeeded" min="1" value="<%= job.employeesNeeded %>" required />
+
+             <label>Maximum Penguins Needed: </label>
+            <input type="number" name="maximumApplicants" min="1" value="<%= job.maximumApplicants %>" required />
+
+
+
+            <label for="description">Job Description:</label>
+            <input type="text" name="description" id="description" required value="<%= job.description %>" />
+
             <button type="submit">Update the Job</button>
         </form>
 

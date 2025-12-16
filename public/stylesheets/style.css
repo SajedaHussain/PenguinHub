@@ -26,6 +26,12 @@ nav {
   margin-bottom: 40px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
   position: relative;
+  transition: all 0.3s ease;
+}
+
+nav:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
 }
 
 nav::after {
@@ -34,6 +40,13 @@ nav::after {
   right: 25px;
   font-size: 3rem;
   opacity: 0.15;
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
 }
 
 nav a {
@@ -43,15 +56,32 @@ nav a {
   padding: 10px 18px;
   border-radius: 10px;
   transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: left 0.3s ease;
+}
+
+nav a:hover::before {
+  left: 0;
 }
 
 nav a:hover {
-  background: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 
 /* ================= BUTTONS ================= */
-button {
+button,
+.btn {
   background: linear-gradient(135deg, #1e90ff, #0066cc);
   color: white;
   padding: 12px 26px;
@@ -61,15 +91,78 @@ button {
   font-weight: 600;
   box-shadow: 0 10px 25px rgba(30, 144, 255, 0.35);
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
 }
 
-button:hover {
+button::before,
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before,
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:hover,
+.btn:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 15px 35px rgba(30, 144, 255, 0.5);
 }
 
-button:active {
+button:active,
+.btn:active {
   transform: scale(0.97);
+}
+
+/* أنواع الأزرار */
+.btn-success {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+}
+
+.btn-success:hover {
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 15px 35px rgba(239, 68, 68, 0.5);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+}
+
+.btn-warning:hover {
+  box-shadow: 0 15px 35px rgba(245, 158, 11, 0.5);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #64748b, #475569);
+  box-shadow: 0 10px 25px rgba(100, 116, 139, 0.35);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 15px 35px rgba(100, 116, 139, 0.5);
 }
 
 /* ================= FORMS ================= */
@@ -82,6 +175,7 @@ form {
   margin: 0 auto 40px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
   position: relative;
+  animation: fadeUp 0.6s ease;
 }
 
 form::before {
@@ -98,7 +192,7 @@ form::before {
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  color: white;
+  box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
 }
 
 form label {
@@ -106,23 +200,40 @@ form label {
   margin-top: 18px;
   margin-bottom: 6px;
   font-weight: 600;
+  color: #2c3e50;
 }
 
 form input,
-form select {
+form select,
+form textarea {
   width: 100%;
   padding: 13px 16px;
   border-radius: 10px;
   border: 2px solid #e1e8ed;
   font-size: 15px;
   transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+form textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 form input:focus,
-form select:focus {
+form select:focus,
+form textarea:focus {
   outline: none;
   border-color: #1e90ff;
   box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ================= CONTAINERS ================= */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 /* ================= PROFILE CARD ================= */
@@ -146,6 +257,7 @@ form select:focus {
   height: 6px;
   width: 100%;
   background: linear-gradient(to right, #1e90ff, #ffdd57);
+  border-radius: 24px 24px 0 0;
 }
 
 .profile-container img {
@@ -168,7 +280,8 @@ form select:focus {
   margin-bottom: 20px;
   background: linear-gradient(to right, #1e90ff, #0077cc);
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .profile-container p {
@@ -177,6 +290,14 @@ form select:focus {
   border-bottom: 1px solid #eef2f6;
   display: flex;
   justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.profile-container p:hover {
+  background: #f8fbff;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
 }
 
 .profile-container p:last-child {
@@ -187,67 +308,104 @@ form select:focus {
   color: #1e90ff;
 }
 
-/* ================= HEADINGS ================= */
-h1,
-h2 {
+/* ================= PROFILE GRID ================= */
+.profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-bottom: 30px;
+  transition: all 0.4s ease;
+  animation: fadeUp 0.6s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-h1::after,
-h2::after {
+.profile-card::before {
   content: '';
-  display: block;
-  width: 90px;
-  height: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
   background: linear-gradient(to right, #1e90ff, #ffdd57);
-  margin: 12px auto 0;
-  border-radius: 3px;
 }
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.profile-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 600px) {
-  nav {
-    flex-direction: column;
-  }
-
-  .profile-container p {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
+.profile-card h2 {
+  font-size: 1.6rem;
+  color: #1e3c72;
+  margin-bottom: 15px;
 }
 
+.profile-card h2::after {
+  width: 60px;
+}
+
+.profile-card .profile-info {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.profile-card .profile-info p {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef2f6;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-card .profile-info p:last-child {
+  border-bottom: none;
+}
 
 /* ================= JOB CARD ================= */
 .job-card {
   background: rgba(255, 255, 255, 0.9);
-  width: 420px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 420px;
   padding: 30px;
   border-radius: 18px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
-  margin: 40px 0;
+  margin: 40px auto;
   animation: fadeUp 0.6s ease;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-/* خليه على جنب */
-@media (min-width: 900px) {
-  .job-card {
-    margin-left: auto; /* يمين */
-    margin-right: 40px;
-  }
+.job-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(to right, #1e90ff, #ffdd57);
+}
+
+.job-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+}
+
+/* Grid للوظائف */
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
 
 /* عنوان الوظيفة */
@@ -298,6 +456,16 @@ h2::after {
   color: #5d3b00;
 }
 
+.status.approved {
+  background: linear-gradient(to right, #4ade80, #22c55e);
+  color: #065f46;
+}
+
+.status.rejected {
+  background: linear-gradient(to right, #f87171, #ef4444);
+  color: #7f1d1d;
+}
+
 /* الوصف */
 .job-description {
   font-size: 0.95rem;
@@ -315,4 +483,380 @@ h2::after {
   font-size: 0.9rem;
   font-weight: 600;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.job-applied::before {
+  content: '✓';
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.job-info-box {
+  background: #f9fbff;
+  border: 1px solid #e1e8f0;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 20px 0 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+.job-info-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.job-info-box p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.job-info-box p:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.job-info-box strong {
+  color: #1e90ff;
+  font-weight: 700;
+}
+
+.job-info-box span {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+/* ================= HEADINGS ================= */
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1e3c72;
+}
+
+h1::after,
+h2::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(to right, #1e90ff, #ffdd57);
+  margin: 12px auto 0;
+  border-radius: 3px;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+/* ================= STATS SECTION ================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #1e90ff, #ffdd57);
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1e90ff;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+/* ================= BADGES ================= */
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.badge-success {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.badge-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.badge-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.badge-info {
+  background: linear-gradient(135deg, #1e90ff, #0077cc);
+  color: white;
+}
+
+/* ================= SKILLS SECTION ================= */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.skill-tag {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  color: #1e3c72;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.skill-tag:hover {
+  background: linear-gradient(135deg, #1e90ff, #0077cc);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(30, 144, 255, 0.3);
+}
+
+/* ================= FOOTER ================= */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 80px;
+  background: rgba(30, 60, 114, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+footer p {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+footer a {
+  color: #1e90ff;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s ease;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.6s ease;
+}
+
+/* ================= UTILITY CLASSES ================= */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 10px; }
+.mt-2 { margin-top: 20px; }
+.mt-3 { margin-top: 30px; }
+.mt-4 { margin-top: 40px; }
+
+.mb-1 { margin-bottom: 10px; }
+.mb-2 { margin-bottom: 20px; }
+.mb-3 { margin-bottom: 30px; }
+.mb-4 { margin-bottom: 40px; }
+
+.flex { display: flex; }
+.flex-center { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-wrap { flex-wrap: wrap; }
+.gap-1 { gap: 10px; }
+.gap-2 { gap: 20px; }
+.gap-3 { gap: 30px; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .job-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  nav {
+    flex-direction: column;
+    padding: 15px 20px;
+  }
+  
+  nav::after {
+    display: none;
+  }
+
+  .profile-container {
+    padding: 25px;
+  }
+
+  .profile-container p {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  .profiles-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    padding: 25px;
+  }
+  
+  button,
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .profile-container h1 {
+    font-size: 1.8rem;
+  }
+  
+  .job-title {
+    font-size: 1.5rem;
+  }
 }

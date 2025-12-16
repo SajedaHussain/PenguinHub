@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,40 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 
 </head>
+
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Adding a new Job</h1>
-    <form action="/jobs" method="POST">
-        <label for="title">Job Title:</label>
-        <input type="text" name="title" id="title" required/><br><br>
+        <h1>Adding a new Job</h1>
+        <form action="/jobs" method="POST">
 
-        <label for="description">Job Description:</label>
-        <input type="text" name="description" id="description" required/><br><br>
+            <label for="title">Job Title:</label>
+            <input type="text" name="title" id="title" required />
+
+            <label>Work Location</label>
+            <input type="text" name="workLocation" required />
+
+            <label>Work Type </label>
+            <select name="workType" required>
+                <option value="">-- Select --</option>
+                <option value="shifts">Shifts</option>
+                <option value="full-time">Full Time</option>
+                <option value="part-time">Part Time</option>
+            </select>
+
+            <label>Penguins Needed: </label>
+            <input type="number" name="employeesNeeded" min="1" required />
+
+            <label>Maximum Penguins Needed: </label>
+            <input type="number" name="maximumApplicants" min="1" required />
 
 
-        <button type="submit">Add a Job</button>
-    </form>
+            <label for="description">Job Description:</label>
+            <input type="text" name="description" id="description" required />
+
+
+            <button type="submit">Add a Job</button>
+        </form>
 
 </body>
+
 </html>

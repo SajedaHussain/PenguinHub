@@ -15,6 +15,27 @@
   <div class="job-card">
 
     <h2 class="job-title"><%= job.title %></h2>
+    <div class="job-info-box">
+
+  <p><strong> Work Location:</strong><span><%= job.workLocation %></span></p>
+
+  <p>
+    <strong> Work Type:</strong>
+    <span>
+      <% if (job.workType === 'full-time') { %>
+        Full Time
+      <% } else if (job.workType === 'part-time') { %>
+        Part Time
+      <% } else { %>
+        Shifts
+      <% } %>
+    </span>
+  </p>
+
+  <p><strong>Employees Needed:</strong> <span><%= job.employeesNeeded %></span></p>
+  <p><strong> Applications:</strong> <%= job.candidates.length %> / <%= job.maximumApplicants %></p>
+</div>
+
 
     <!-- STATUS -->
     <% let myApplication = null; %>
@@ -46,17 +67,25 @@
     </p>
 
     <!-- APPLY -->
-    <% if (!job.owner._id.equals(user._id)) { %>
-      <% const applied = job.candidates.some(c => c.user._id.equals(user._id)) %>
+    <!-- APPLY -->
+<% if (!job.owner._id.equals(user._id)) { %>
 
-      <% if (applied) { %>
-        <p class="job-applied">✅ You have already applied for this job</p>
-      <% } else { %>
-        <form action="/jobs/<%= job._id %>/apply" method="POST">
-          <button>Apply for this Job</button>
-        </form>
-      <% } %>
-    <% } %>
+  <% const applied = job.candidates.some(c => c.user._id.equals(user._id)) %>
+  <% const isFull = job.candidates.length >= job.maximumApplicants %>
+
+  <% if (applied) { %>
+    <p class="job-applied">✅ You have already applied for this job</p>
+
+  <% } else if (isFull) { %>
+    <p class="job-full">❌ This job has reached the maximum number of applicants</p>
+
+  <% } else { %>
+    <form action="/jobs/<%= job._id %>/apply" method="POST">
+      <button>Apply for this Job</button>
+    </form>
+  <% } %>
+
+<% } %>
 
     <!-- OWNER ACTIONS -->
     <% if (job.owner._id.equals(user._id)) { %>
