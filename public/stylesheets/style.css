@@ -7,11 +7,68 @@
 }
 
 /* ================= BODY ================= */
+:root {
+  --bg: #f5faff;
+  --bg-soft: #eaf4ff;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.25);
+  --danger: #fb7185;
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border: rgba(56, 189, 248, 0.35);
+
+  --radius-lg: 18px;
+  --radius-full: 999px;
+
+  --shadow-soft: 0 18px 40px rgba(56, 189, 248, 0.18);
+  --transition: 200ms ease;
+
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+
 body {
-  background: radial-gradient(circle at top, #e3f2fd, #f7fbff);
-  color: #2c3e50;
-  min-height: 100vh;
-  padding: 25px;
+  font-family: var(--font-main);
+  background: radial-gradient(
+    circle at top left,
+    #ffffff 0%,
+    #eef6ff 45%,
+    #dbeafe 100%
+  ); 
+  color: var(--text-main); 
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+
+    
+.hero {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+
+  /* صورة الخلفية الجديدة مع تدرج شفاف */
+  background-image:url('https://lh3.googleusercontent.com/gg-dl/ABS2GSnOJPFMcZuRt2YecZ0WVtcao1EZwPvZyahjDlhAbgCwGACMC_RKccaBJFfWLqZWeeYiH3dk3Uzi1EPEyEq47Laf9naORKKjGL00EJGtP0Cv0oBSMAAslMkov-22n53NwWoLqUrfptzRIsIkQKUxxv5_LtZHwOogCsUZdi6RW6iQieNk9A=s1024-rj');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* تأثير Floating خفيف */
+  animation: bgFloat 7s ease-in-out infinite;
 }
 
 /* ================= NAVBAR ================= */
@@ -20,7 +77,7 @@ nav {
   align-items: center;
   gap: 15px;
   padding: 20px 30px;
-  background: rgba(30, 60, 114, 0.9);
+  background: rgba(19, 42, 87, 0.9);
   backdrop-filter: blur(10px);
   border-radius: 16px;
   margin-bottom: 40px;
@@ -128,7 +185,7 @@ button:active,
   transform: scale(0.97);
 }
 
-/* أنواع الأزرار */
+
 .btn-success {
   background: linear-gradient(135deg, #10b981, #059669);
   box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
@@ -138,32 +195,6 @@ button:active,
   box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5);
 }
 
-.btn-danger {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35);
-}
-
-.btn-danger:hover {
-  box-shadow: 0 15px 35px rgba(239, 68, 68, 0.5);
-}
-
-.btn-warning {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
-}
-
-.btn-warning:hover {
-  box-shadow: 0 15px 35px rgba(245, 158, 11, 0.5);
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, #64748b, #475569);
-  box-shadow: 0 10px 25px rgba(100, 116, 139, 0.35);
-}
-
-.btn-secondary:hover {
-  box-shadow: 0 15px 35px rgba(100, 116, 139, 0.5);
-}
 
 /* ================= FORMS ================= */
 form {
@@ -1264,166 +1295,155 @@ footer a:hover {
   box-sizing: border-box;
 }
 
-:root {
-  --bg: #f5faff;
-  --bg-soft: #eaf4ff;
-  --accent: #38bdf8;
-  --accent-soft: rgba(56, 189, 248, 0.25);
-  --danger: #fb7185;
 
-  --text-main: #0f172a;
-  --text-muted: #475569;
 
-  --card-bg: rgba(255, 255, 255, 0.75);
-  --card-border: rgba(56, 189, 248, 0.35);
-
-  --radius-lg: 18px;
-  --radius-full: 999px;
-
-  --shadow-soft: 0 18px 40px rgba(56, 189, 248, 0.18);
-  --transition: 200ms ease;
-
-  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  font-family: var(--font-main);
-  background: radial-gradient(
-    circle at top left,
-    #ffffff 0%,
-    #eef6ff 45%,
-    #dbeafe 100%
-  );
-  color: var(--text-main);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
 
 /* ---------- Hero section ---------- */
+/* ================= HERO HOME PAGE ================= */
+
+
+@keyframes bgFloat {
+  0%, 100% { background-position: center center; }
+  50% { background-position: center 45%; }
+}
+/* ================= HERO HOME PAGE ================= */
 .hero {
-  min-height: calc(100vh - 80px);
-  padding-top: 5rem;
-  padding-bottom: 4rem;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   justify-content: center;
-  gap: 1.5rem;
+  text-align: center;
+  padding: 2rem;
   position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 520px;
-  height: 520px;
-  background: radial-gradient(circle, #38bdf8 0%, transparent 60%);
-  opacity: 0.25;
-  filter: blur(20px);
-  z-index: -2;
+  
+  /* خلفية متدرجة مع صورة */
+  background: linear-gradient(rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.6)), 
+              url('https://files.catbox.moe/6fyo75.jpg') center/cover no-repeat !important;
+  color: white;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  margin-bottom: -50px; /* لدمج الهيرو مع الكروت قليلاً */
+  z-index: 1;
 }
 
 .hero h1 {
-  font-size: clamp(2.6rem, 5vw, 3.4rem);
-  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: #fff; /* لون أبيض صريح للنص فوق الخلفية الداكنة */
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .hero p {
-  margin: 0;
-  max-width: 520px;
-  font-size: 1.05rem;
-  color: var(--text-muted);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  max-width: 700px;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-/* ---------- Hero buttons ---------- */
 .hero-buttons {
-  margin-top: 1.4rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .hero-buttons a {
-  min-width: 150px;
-  padding: 0.85rem 1.8rem;
-  border-radius: var(--radius-full);
-  font-weight: 600;
+  padding: 14px 35px;
+  border-radius: 50px;
+  font-weight: 700;
   text-decoration: none;
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
 }
 
-/* Primary */
-.hero-buttons a:first-child {
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  color: white;
-  box-shadow: 0 14px 35px rgba(56, 189, 248, 0.45);
-}
-
-.hero-buttons a:first-child:hover {
-  transform: translateY(-2px);
-}
-
-/* Secondary */
-.hero-buttons a.outline {
-  background: white;
+.hero-buttons a:not(.outline) {
+  background: #38bdf8;
   color: #0f172a;
-  border: 1px solid #38bdf8;
 }
 
-.hero-buttons a.outline:hover {
-  background: #e0f2fe;
+.hero-buttons a.outline {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
 }
 
-/* ---------- Features ---------- */
+.hero-buttons a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  filter: brightness(1.1);
+}
+
+/* ================= FEATURES SECTION ================= */
 .features {
-  padding: 0 1.75rem 4rem;
+  padding: 0 2rem 5rem;
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 1100px;
-  margin: 0 auto 3rem;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* تجاوب تلقائي */
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2; /* لتظهر فوق الهيرو */
 }
 
 .feature-card {
-  padding: 1.6rem 1.4rem;
-  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2.5rem 1.5rem;
+  border-radius: 24px;
   text-decoration: none;
-  color: inherit;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(14px);
-  transition: var(--transition);
+  color: #1e3c72;
+  text-align: center;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .feature-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 55px rgba(56, 189, 248, 0.35);
+  transform: translateY(-12px);
+  background: white;
+  box-shadow: 0 25px 50px rgba(21, 223, 237, 0.812);
+  border-color: #04e2f1;
 }
 
 .feature-card h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  color: #1e3c72;
 }
 
 .feature-card p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--text-muted);
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
+/* إضافة أيقونات بسيطة قبل العناوين (اختياري عبر CSS) */
+.feature-card h3::before {
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
 
+.feature-card[href="/jobs"] h3::before { content: '💼'; }
+.feature-card[href="/gym"] h3::before { content: '🏋️‍♂️'; }
+.feature-card[href="/crimes"] h3::before { content: '🚨'; }
+.feature-card[href="/profiles"] h3::before { content: '🐧'; }
 
-
-
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+    border-radius: 0;
+  }
+  .features {
+    margin-top: 20px;
+    padding: 1rem;
+  }
+}
