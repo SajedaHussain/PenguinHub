@@ -19,13 +19,13 @@ router.get('/', async (req, res) => {
 
     if (bmi < 18.5) {
       category = 'Underweight Penguin'
-      planImage = '/Assest/plans/underweight.png'
+      planImage = '/plans/underweight.png'
     } else if (bmi < 25) {
       category = 'Fit Penguin'
-      planImage = '/Assest/plans/fit.png'
+      planImage = '/plans/fit.png'
     } else {
       category = 'Heavy Penguin'
-      planImage = '/Assest/plans/heavy.png'
+      planImage = '/plans/heavy.png'
     }
 
     res.render('gym/show.ejs', {
