@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Gym</title>
+</head>
+<body>
+    <div class="gym-card">
+  <h1> Gym </h1>
+
+  <p><strong>Height:</strong> <%= profile.height %> cm</p>
+  <p><strong>Weight:</strong> <%= profile.weight %> kg</p>
+
+  <h2>BMI: <%= bmi %></h2>
+  <p class="bmi-category"><%= category %></p>
+
+  <button onclick="document.getElementById('plan').style.display='block'">
+    Show Training Plan 💪
+  </button>
+
+  <div id="plan" style="display:none; margin-top:20px;">
+    <img src="<%= planImage %>" alt="Workout Plan" class="plan-img">
+  </div>
+</div>
+
+</body>
+</html>
