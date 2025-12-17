@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criminal Records</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    
+    <h1> Criminal Records</h1>
+<a href="/crimes/new" class="btn">Add Crime</a>
+
+<div class="penguin-grid">
+  <% crimes.forEach(c => { %>
+    <div class="penguin-card">
+      <img src="<%= c.image %>" alt="">
+      <h3><%= c.penguinName %></h3>
+      <p><strong>Crime:</strong> <%= c.crime %></p>
+      <span class="badge badge-<%= c.dangerLevel.toLowerCase() %>">
+        <%= c.dangerLevel %>
+      </span>
+      <a href="/crimes/<%= c._id %>" class="btn mt-2">View</a>
+    </div>
+  <% }) %>
+</div>
+
+</body>
+</html>

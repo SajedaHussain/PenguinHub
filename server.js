@@ -23,6 +23,7 @@ const authCtrl = require('./controllers/auth.js')
 const jobCtrl = require('./controllers/jobs.js')
 const profileCtrl = require('./controllers/profiles.js')
 const gymCtrl = require('./controllers/gym.js')
+const crimesCtrl = require('./controllers/crimes.js')
 
 // Port
 const port = process.env.PORT || 3000
@@ -77,6 +78,7 @@ app.use(isSignedIn)
 app.use('/jobs', jobCtrl)
 app.use('/profiles', profileCtrl)
 app.use('/gym',gymCtrl)
+app.use('/crimes',crimesCtrl)
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`)

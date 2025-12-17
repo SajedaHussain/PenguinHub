@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Edit Penguin Crime </h1>
+
+<form action="/crimes/<%= crime._id %>?_method=PUT" method="POST">
+
+  <label>Penguin Name</label>
+  <input type="text" name="penguinName" value="<%= crime.penguinName %>" required>
+
+  <label>Crime</label>
+  <input type="text" name="crime" value="<%= crime.crime %>" required>
+
+  <label>Danger Level</label>
+  <select name="dangerLevel">
+    <option value="Low" <%= crime.dangerLevel === 'Low' ? 'selected' : '' %>>Low</option>
+    <option value="Medium" <%= crime.dangerLevel === 'Medium' ? 'selected' : '' %>>Medium</option>
+    <option value="High" <%= crime.dangerLevel === 'High' ? 'selected' : '' %>>High</option>
+  </select>
+
+  <label>Punishment</label>
+  <input type="text" name="punishment" value="<%= crime.punishment %>" required>
+
+  <label>Image URL</label>
+  <input type="text" name="image" value="<%= crime.image %>">
+
+  <button class="btn btn-success">Save Changes</button>
+</form>
+
+</body>
+</html>

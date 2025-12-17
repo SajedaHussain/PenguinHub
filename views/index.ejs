@@ -10,13 +10,47 @@
 
 <body>
     <%- include('./partials/_navbar.ejs') %>
-    <% if (user) { %>
-            <h1>Welcome to the PenguinHub, <%= user.username %>!</h1>
-        
-    <% } else { %>
-        <h1>Welcome to the PenguinHub, guest.</h1>
 
+  <!-- HERO -->
+  <section class="hero">
+    <h1> Welcome to PenguinHub</h1>
+    <p>Where penguins work, train, and get caught </p>
+
+    <% if (!user) { %>
+      <div class="hero-buttons">
+        <a href="/auth/sign-up">Join Now</a>
+        <a href="/auth/sign-in" class="outline">Sign In</a>
+      </div>
     <% } %>
-</body>
+  </section>
 
+  <!-- FEATURES -->
+  <section class="features">
+
+    <a href="/jobs" class="feature-card">
+      <h3> Jobs</h3>
+      <p>Find or post penguin jobs</p>
+    </a>
+
+    <a href="/gym" class="feature-card">
+      <h3> Penguin Gym</h3>
+      <p>BMI & training plans</p>
+    </a>
+
+    <a href="/crimes" class="feature-card">
+      <h3> Criminal Records</h3>
+      <p>Penguin crimes & punishments</p>
+    </a>
+
+    <a href="/profiles" class="feature-card">
+      <h3> Penguins</h3>
+      <p>Explore penguin profiles</p>
+    </a>
+
+  </section>
+
+</body>
 </html>
+
+
+
