@@ -19,9 +19,10 @@ const isSignedIn = require('./middleware/isSignedIn.js')
 const Profile = require('./models/profile')
 
 // Controllers
-const authCtrl = require('./controllers/auth')
+const authCtrl = require('./controllers/auth.js')
 const jobCtrl = require('./controllers/jobs.js')
-const profileCtrl = require('./controllers/profiles')
+const profileCtrl = require('./controllers/profiles.js')
+const gymCtrl = require('./controllers/gym.js')
 
 // Port
 const port = process.env.PORT || 3000
@@ -74,6 +75,7 @@ app.use('/auth', authCtrl)
 app.use(isSignedIn)
 app.use('/jobs', jobCtrl)
 app.use('/profiles', profileCtrl)
+app.use('/gym',gymCtrl)
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`)
